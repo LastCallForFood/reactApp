@@ -31,8 +31,8 @@ export default class AboutUsScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../images/cropped-eaters-collective-172258-unsplashedit-1.jpg')
-                  : require('../images/cropped-eaters-collective-172258-unsplashedit-1.jpg')
+                  ? require('../../images/cropped-eaters-collective-172258-unsplashedit-1.jpg')
+                  : require('../../images/cropped-eaters-collective-172258-unsplashedit-1.jpg')
               }
               style={styles.welcomeImage}
             />
@@ -74,8 +74,8 @@ export default class AboutUsScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../images/kitchen-360x240.jpeg')
-                  : require('../images/kitchen-360x240.jpeg')
+                  ? require('../../images/kitchen-360x240.jpeg')
+                  : require('../../images/kitchen-360x240.jpeg')
               }
               style={styles.welcomeImage}
             />
@@ -95,8 +95,8 @@ export default class AboutUsScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../images/Erin-headshot-square.jpg')
-                  : require('../images/Erin-headshot-square.jpg')
+                  ? require('../../images/Erin-headshot-square.jpg')
+                  : require('../../images/Erin-headshot-square.jpg')
               }
               style={styles.headshotImage}
             />
@@ -113,8 +113,8 @@ export default class AboutUsScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../images/King-headshot-square.jpg')
-                  : require('../images/King-headshot-square.jpg')
+                  ? require('../../images/King-headshot-square.jpg')
+                  : require('../../images/King-headshot-square.jpg')
               }
               style={styles.headshotImage}
             />

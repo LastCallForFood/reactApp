@@ -1,11 +1,11 @@
-import React from "react";
-import { StyleSheet, Text, Image, View, ImageBackground } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, Image, View, ImageBackground } from 'react-native';
 
 export class BackgroundImage extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require("../assets/images/splash.png")}
+        source={require('../assets/images/splash.png')}
         style={styles.backgroundImage}
       >
         {this.props.children}
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: "cover"
+    resizeMode: 'cover'
   }
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default class ConfirmOrderScreen extends React.Component {
   static navigationOptions = {
@@ -26,16 +26,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   contentContainer: {
     paddingTop: 30
   },
   h1: {
     fontSize: 17,
-    color: "rgba(96,100,109, 1)",
+    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: "center",
-    fontWeight: "bold"
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 });

@@ -1,21 +1,15 @@
 import React from 'react';
-
+import { RkButton } from 'react-native-ui-kitten';
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Button,
-  Alert
+	View,
 } from 'react-native';
 
-import { buttons } from '../styles/Style.js';
-
-import { RkButton } from 'react-native-ui-kitten';
-import { BackgroundImage } from '../components/BackGroundImage';
+import { buttons } from '../../styles/Style.js';
+import { BackgroundImage } from '../../components/common/BackGroundImage';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -32,8 +26,8 @@ export default class HomeScreen extends React.Component {
               <Image
                 source={
                   __DEV__
-                    ? require('../assets/images/last-call-logo.png')
-                    : require('../assets/images/last-call-logo.png')
+                    ? require('../../assets/images/last-call-logo.png')
+                    : require('../../assets/images/last-call-logo.png')
                 } style={styles.welcomeImage}
               />
             </View>

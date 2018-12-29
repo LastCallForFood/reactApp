@@ -19,7 +19,6 @@ import CurrentOffersScreen from '../screens/CurrentOffersScreen';
 import OfferHistoryScreen from '../screens/OfferHistoryScreen';
 
 // TODO: functionality that dynamically determines tab navigator based on user type
-// TODO: stack navigators for the necessary screens
 const userType = 'subscriber';
 
 // supplier tab navigator
@@ -79,12 +78,12 @@ const SubscriberTabNavigator = createBottomTabNavigator(
 		defaultNavigationOptions: ({ navigation }) => ({
 			tabBarLabel: () => {
 				const { routeName } = navigation.state;
-				// eslint-disable-next-line max-len
-				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };	// for some reason, tabBarLabel is not styled the same as it is when using .navigationOptions
+				// tabBarLabel is not styled the same as it is when using .navigationOptions (?)
+				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };
 				let text;
 
 				switch (routeName) {
-					case 'PlaceOrder': 	text = 'Buy Meal';		break;
+					case 'PlaceOrder': 	text = 'Meals';				break;
 					case 'MyAccount': 	text = 'My Account';	break;
 					case 'AboutUs': 		text = 'About Us';		break;
 					default: 						break;

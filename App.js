@@ -1,7 +1,8 @@
 import React from 'react';
-import { Platform, StatusBar, View, StyleSheet } from 'react-native';
+import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './src/navigation/AppNavigator';
+
+import AppNavigator from './src/components/navigation/AppNavigator';
 import { containerNoPadding } from './src/styles/Style';
 
 export default class App extends React.Component {
@@ -10,7 +11,7 @@ export default class App extends React.Component {
     isLoadingComplete: false
   };
 
-  _loadResourcesAsync = async () => Promise.all([
+  loadResourcesAsync = async () => Promise.all([
       Asset.loadAsync([
 				// TODO: require these globally?
         require('./src/assets/images/last-call-logo.png'),
@@ -25,11 +26,11 @@ export default class App extends React.Component {
       })
     ]);
 
-  _handleLoadingError = error => {
+  handleLoadingError = error => {
     console.warn(error);
   };
 
-  _handleFinishLoading = () => {
+  handleFinishLoading = () => {
 		this.setState({ isLoadingComplete: true });
 	};
 	
@@ -37,25 +38,18 @@ export default class App extends React.Component {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          startAsync={this.loadResourcesAsync}
+          onError={this.handleLoadingError}
+          onFinish={this.handleFinishLoading}
         />
       );
 		}
 		
 		return (
-			<View style={styles.container}>
+			<View style={containerNoPadding}>
 				{Platform.OS === 'ios' && <StatusBar barStyle="default" />}
 				<AppNavigator />
 			</View>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-	}
-});

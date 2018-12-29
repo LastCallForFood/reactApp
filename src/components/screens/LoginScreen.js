@@ -1,27 +1,23 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View, Image, Alert } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Input } from "react-native-elements";
-import { RkButton } from "react-native-ui-kitten";
-import LinkLabel from "../components/LinkLabel.js";
-import ErrorMessage from "../components/ErrorMessage.js";
-import { StackActions, NavigationActions } from "react-navigation";
-
-import { dbUrl } from "../components/DatabaseUrl";
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
+import { RkButton } from 'react-native-ui-kitten';
+import LinkLabel from '../../components/common/LinkLabel.js';
+import ErrorMessage from '../../components/common/ErrorMessage.js';
+import { dbUrl } from '../../components/common/DatabaseUrl';
 
 export default class LoginScreen extends React.Component {
-  static navigationOptions = {
-    header: null
-  };
 
   constructor(properties) {
     super(properties);
     this.state = {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       error: null,
       loading: false,
-      authtoken: null
+      authtoken: null,
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -36,7 +32,56 @@ export default class LoginScreen extends React.Component {
     this.state.password = text;
   }
 
-  render() {
+  handleSubmit() {
+		const url = `${dbUrl}SubscriberServices/Login`;
+
+    const formData = new FormData();
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
+
+    this.setState({ loading: true });
+    // POST the data, and check the response
+    fetch(url, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          error: data.error,
+          loading: false,
+          authtoken: data.AuthToken
+        });
+        //console.log(JSON.stringify(data));
+        console.log(
+          `${data.error.ErrorNumber 
+            } : ${ 
+            data.error.ErrorMessage 
+            } : ${ 
+            data.AuthToken}`
+        );
+        //TODO: Save the auth token
+        //TODO: Unstack the login page
+        //TODO: Go to the right place
+
+        if (data.error.ErrorNumber === 0) {
+					const userType = 'subscriber';
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
+          });
+          this.props.navigation.dispatch(resetAction);
+        }
+      })
+      .catch(error => {
+        console.log(`FAILURE: ${error}`);
+      });
+	}
+
+	render() {
     const displayForm =
 			(this.state &&
 				!this.state.loading &&
@@ -72,8 +117,8 @@ export default class LoginScreen extends React.Component {
               <Image
                 source={
                   __DEV__
-                    ? require("../assets/images/last-call-logo.png")
-                    : require("../assets/images/last-call-logo.png")
+                    ? require('../../assets/images/last-call-logo.png')
+                    : require('../../assets/images/last-call-logo.png')
                 }
                 style={styles.welcomeImage}
               />
@@ -102,10 +147,11 @@ export default class LoginScreen extends React.Component {
 
               <RkButton
                 rkType="rounded"
-                style={{ backgroundColor: "#f44242", marginTop: 50 }}
+                style={{ backgroundColor: '#f44242', marginTop: 50 }}
                 onPress={() => {
                   this.handleSubmit();
-                }}>Sign In</RkButton>
+                }}
+              >Sign In</RkButton>
 
             </View>
 					)}
@@ -124,92 +170,28 @@ export default class LoginScreen extends React.Component {
       </View>
     );
   }
-
-  handleSubmit() {
-		var url = dbUrl + "SubscriberServices/Login";
-
-    var formData = new FormData();
-    formData.append("username", this.state.username);
-    formData.append("password", this.state.password);
-
-    this.setState({ loading: true });
-    // POST the data, and check the response
-    fetch(url, {
-      method: "POST",
-      body: formData,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          error: data.error,
-          loading: false,
-          authtoken: data.AuthToken
-        });
-        //console.log(JSON.stringify(data));
-        console.log(
-          data.error.ErrorNumber +
-            " : " +
-            data.error.ErrorMessage +
-            " : " +
-            data.AuthToken
-        );
-        //TODO: Save the auth token
-        //TODO: Unstack the login page
-        //TODO: Go to the right place
-
-        if (data.error.ErrorNumber === 0) {
-          //this.props.navigation.reset(
-          //[NavigationActions.navigate({ routeName: "Order" })],
-          //0
-          //);
-          //this.props.navigation.replace("Order");
-          //this.props.navigation.navigate("Order");
-          //this.props.navigation.dispatch(
-          //NavigationActions.reset({
-          //index: 0, //Home screen of Tab A
-          //actions: [
-          //NavigationActions.navigate({
-          //routeName: "Order"
-          //}) //Tab B
-          //]
-          //})
-          //);
-          const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: "Tabs" })]
-          });
-          this.props.navigation.dispatch(resetAction);
-        }
-      })
-      .catch(error => {
-        console.log("FAILURE: " + error);
-      });
-  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   contentContainer: {
     paddingTop: 30
   },
   welcomeContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 10,
     marginBottom: 20
   },
   h1: {
     fontSize: 17,
-    color: "rgba(96,100,109, 1)",
+    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: "center",
-    fontWeight: "bold",
+    textAlign: 'center',
+    fontWeight: 'bold',
     marginBottom: 50
   }
 });

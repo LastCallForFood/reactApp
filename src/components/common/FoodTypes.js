@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { CheckBox, ListItem } from "react-native-elements";
+import React from 'react';
+import { Text, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 
-import { dbUrl } from "./DatabaseUrl";
+import { dbUrl } from './DatabaseUrl';
 
 class CustomCheckBox extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export class FoodTypes extends React.Component {
       loading: true
     };
 
-    var url = dbUrl + "HelperServices/FoodTypes";
+    const url = `${dbUrl}HelperServices/FoodTypes`;
 
     fetch(url)
       .then(response => response.json())
@@ -74,32 +74,35 @@ export class FoodTypes extends React.Component {
       this.state.error !== null &&
       this.state.error.ErrorNumber === 0;
 
-    if (displayForm)
-      return (
+    if (displayForm) { 
+return (
         <View>
           <Text>Your food preferences</Text>
         </View>
-      );
-    if (displayWaiting)
-      return (
+      ); 
+}
+    if (displayWaiting) {
+ return (
         <View>
           <Text>Retrieving available food preferences...</Text>
         </View>
       );
-    if (displayError)
-      return (
+ }
+    if (displayError) {
+ return (
         <View>
           <Text>{this.state.ErrorMessage}</Text>
         </View>
       );
-    if (displaySuccess)
-      return (
+ }
+    if (displaySuccess) {
+ return (
         // Each row will return 'id' (the identifier for the food type, saved as the foodid prop) and 'foodtype1' (the name of the food type, used as the title prop)
         <View
           style={{
             flex: 1,
-            flexDirection: "column",
-            justifyContent: "space-between"
+            flexDirection: 'column',
+            justifyContent: 'space-between'
           }}
         >
           <Text>Your food preferences</Text>
@@ -114,12 +117,13 @@ export class FoodTypes extends React.Component {
             />
           ))}
         </View>
-      );
+      ); 
+}
 
     return (
       <View>
         <Text>
-          No idea what happened: {this.state.error.ErrorMesssage}{" "}
+          No idea what happened: {this.state.error.ErrorMesssage}{' '}
           {this.state.error.ErrorDetails}
           {this.state.error.ErrorDetails}
         </Text>
@@ -127,9 +131,5 @@ export class FoodTypes extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  noStyle: {}
-});
 
 export default FoodTypes;

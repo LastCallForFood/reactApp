@@ -1,10 +1,9 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { BackgroundImage } from "../components/BackGroundImage";
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-export default class OrderScreen extends React.Component {
+export default class OfferSummaryScreen extends React.Component {
   static navigationOptions = {
-    title: 'Available Meals',
+    header: null
   };
 
   render() {
@@ -15,7 +14,7 @@ export default class OrderScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}
         >
           <View>
-            <Text style={styles.h1}></Text>
+            <Text style={styles.h1}>This is the food offer summary screen</Text>
           </View>
         </ScrollView>
       </View>
@@ -27,16 +26,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   contentContainer: {
     paddingTop: 30
   },
   h1: {
     fontSize: 17,
-    color: "rgba(96,100,109, 1)",
+    color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: "center",
-    fontWeight: "bold"
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 });

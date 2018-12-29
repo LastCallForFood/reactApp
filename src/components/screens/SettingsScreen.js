@@ -1,50 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, Alert } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, CheckBox } from 'react-native-elements';
-import { RkButton } from 'react-native-ui-kitten';
-import ErrorMessage from '../components/ErrorMessage.js';
-import FoodTypes from '../components/FoodTypes';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-// checkbox employed on registration form
-// TODO: refactor Checkbox usage
-class SimpleCheckBox extends React.Component {
+export default class SettingsScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: this.props.checked
-    };
-  }
-
-  render() {
-    return (
-      <CheckBox
-        title={this.props.title}
-        checked={this.state.checked}
-        onPress={() => {
-          this.setState({ checked: !checked });
-        }}
-      />
-    );
-  }
-
-}
-
-export default class MyAccountScreen extends React.Component {
-  // displayName = RegisterMyAccountScreen.name;
-  
   static navigationOptions = {
-		// TODO: remove OR fix this — is this useful, or is the default nav button fine?
-		/*headerLeft: (
-			<RkButton
-				rkType="clear"
-				onPress={ () => this.props.navigation.goBack() }>
-					<HeaderIcon name={ Platform.OS === "ios" ? "ios-arrow-back" : "md-arrow-back" }/>
-			</RkButton>
-    ),*/
-    title: 'My Account',
+    header: null
   };
 
   constructor(properties) {
@@ -65,6 +25,7 @@ export default class MyAccountScreen extends React.Component {
       loading: false
     };
 
+		displayName = RegisterSettingsScreen.name; // TODO
     global.foodPreferences = '';
 
 		// bind methods to screen elements
@@ -78,9 +39,11 @@ export default class MyAccountScreen extends React.Component {
     this.handleFriendlyChange = this.handleFriendlyChange.bind(this);
   }
 
-  // TODO: Bizarre. Cannot find a way of having a common change handler where the object id can be deduced from the event parameters. Official docs are useless.
+  //TODO: Bizarre. Cannot find a way of having a common change handler where the object id can be deduced from the event parameters. Official docs are useless.
   handleChange(event) {
-    // Callback that is called when the text input's text changes.
+    /**
+     * Callback that is called when the text input's text changes.
+     */
   }
 
   handleEmailChange(text) {
@@ -132,9 +95,11 @@ export default class MyAccountScreen extends React.Component {
         !this.state.loading &&
         this.state.error !== null &&
         this.state.error.ErrorNumber !== 0);
+    //console.log(displayForm);
 
     // If state exists and loading then we are waiting for the server to respond
     const displayWaiting = this.state && this.state.loading;
+    //console.log(displayForm + ":" + displayWaiting);
 
     // If state exists and not loading and error object exists and error code is nonzero then we have an error to display
     const displayError =
@@ -142,6 +107,7 @@ export default class MyAccountScreen extends React.Component {
       !this.state.loading &&
       this.state.error !== null &&
       this.state.error.ErrorNumber !== 0;
+    //console.log(displayForm + ":" + displayWaiting + ":" + displayError);
 
     // If state exists and not loading and error object exists and error code is zero then we have a successful registration
     const displaySuccess =
@@ -150,23 +116,42 @@ export default class MyAccountScreen extends React.Component {
       this.state.error !== null &&
       this.state.error.ErrorNumber === 0;
 
+    //console.log(
+    //  displayForm +
+    //   ":" +
+    //    displayWaiting +
+    //    ":" +
+    //    displayError +
+    //    ":" +
+    //    displaySuccess
+    //);
+
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
           {(displayForm || displayError) && (
             <View style={styles.welcomeContainer}>
-
+              <Image
+                source={
+                  __DEV__
+                    ? require('../../assets/images/last-call-logo.png')
+                    : require('../../assets/images/last-call-logo.png')
+                }
+                style={styles.welcomeImage}
+              />
+              <Text style={styles.h1}>Register A New Account</Text>
               {displayError && (
                 <ErrorMessage text={this.state.error.ErrorMessage} />
               )}
-
               <Input
                 placeholder="Email address"
                 name="username"
                 leftIcon={<Icon name="address-card" size={24} color="black" />}
                 onChangeText={this.handleEmailChange}
               />
-
               <Input
                 placeholder="Password"
                 name="password"
@@ -175,7 +160,6 @@ export default class MyAccountScreen extends React.Component {
                 }
                 onChangeText={this.handlePasswordChange}
               />
-
               <Input
                 placeholder="Confirm Password"
                 name="confirmpassword"
@@ -184,21 +168,18 @@ export default class MyAccountScreen extends React.Component {
                 }
                 onChangeText={this.handleConfirmPasswordChange}
               />
-              
               <Input
                 placeholder="Password recovery question"
                 name="recoveryq"
                 leftIcon={<Icon name="sticky-note" size={24} color="black" />}
                 onChangeText={this.handlePasswordQChange}
               />
-
               <Input
                 placeholder="Password recovery answer"
                 name="recoverya"
                 leftIcon={<Icon name="sticky-note" size={24} color="black" />}
                 onChangeText={this.handlePasswordAChange}
               />
-
               <Input
                 placeholder="Friendly name"
                 name="friendlyname"
@@ -207,39 +188,33 @@ export default class MyAccountScreen extends React.Component {
                 }
                 onChangeText={this.handleFriendlyChange}
               />
-
               <Input
                 placeholder="Address"
                 name="address"
                 leftIcon={<Icon name="address-book" size={24} color="black" />}
                 onChangeText={this.handleAddressChange}
               />
-
               <Input
                 placeholder="Phone"
                 name="phone"
                 leftIcon={<Icon name="phone" size={24} color="black" />}
                 onChangeText={this.handlePhoneChange}
               />
-
               <SimpleCheckBox
                 ref="mailinglist"
                 title="Add to Mailing List?"
                 checked={false}
               />
-
               <SimpleCheckBox
                 ref="emailoffers"
                 title="Notify by Email?"
                 checked={false}
               />
-
               <SimpleCheckBox
                 ref="textoffers"
                 title="Notify by Text Message?"
                 checked={false}
               />
-
               <FoodTypes onPrefsChange={this.setFoodPrefs} />
               <RkButton
                 rkType="rounded"
@@ -247,30 +222,29 @@ export default class MyAccountScreen extends React.Component {
                 onPress={() => {
                   this.handleSubmit();
                 }}
-              >Register</RkButton>
-
+              >
+                Register
+              </RkButton>
             </View>
           )}
-
           {displayWaiting && (
             <View style={styles.welcomeContainer}>
               <Text>Completing your registration...</Text>
             </View>
           )}
-
           {displaySuccess && (
             <View style={styles.welcomeContainer}>
               <Text>Welcome to Last Call {this.state.username}!</Text>
             </View>
           )}
-
         </ScrollView>
       </View>
     );
   }
 
   handleSubmit() {
-    const url = 'http://lastcallforfood-dev.com/SubscriberServices/RegisterSubscriber';
+    const url =
+      'http://lastcallforfood-dev.com/SubscriberServices/RegisterSubscriber';
 
     const formData = new FormData();
     formData.append('username', this.state.username);
@@ -286,7 +260,6 @@ export default class MyAccountScreen extends React.Component {
     formData.append('mailinglist', this.refs.mailinglist.state.checked ? 1 : 0);
 
     this.setState({ loading: true });
-
     // POST the data, and check the response
     fetch(url, {
       method: 'POST',
@@ -346,5 +319,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10
   }
-
 });

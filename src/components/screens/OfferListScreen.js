@@ -1,9 +1,10 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-export default class OfferSummaryScreen extends React.Component {
+export default class OfferListScreen extends React.Component {
+
   static navigationOptions = {
-    header: null
+    title: 'Available Meals',
   };
 
   render() {
@@ -14,7 +15,7 @@ export default class OfferSummaryScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}
         >
           <View>
-            <Text style={styles.h1}>This is the food offer summary screen</Text>
+            <Text style={styles.h1}>Ordering screen</Text>
           </View>
         </ScrollView>
       </View>

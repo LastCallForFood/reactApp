@@ -1,9 +1,6 @@
-import React, { Component } from "react";
+import { StyleSheet, Text } from 'react-native';
 
-import { StyleSheet, Text } from "react-native";
-
-const ErrorMessage = props => {
-  return (
+const ErrorMessage = props => (
     <Text
       style={
         props.styles && props.styles.textLabel
@@ -14,17 +11,16 @@ const ErrorMessage = props => {
       {props.text}
     </Text>
   );
-};
 
 const styles = StyleSheet.create({
   textLabel: {
     fontSize: 16,
-    fontWeight: "normal",
-    fontFamily: "space-mono",
+    fontWeight: 'normal',
+    fontFamily: 'space-mono',
     marginBottom: 10,
     marginTop: 10,
-    color: "#ff0000"
+    color: '#ff0000'
   }
 });
 
-export default ErrorMessage;
+export { ErrorMessage };

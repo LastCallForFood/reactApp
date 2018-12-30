@@ -6,7 +6,7 @@ import { Input, CheckBox } from 'react-native-elements';
 import { RkButton } from 'react-native-ui-kitten';
 
 import ErrorMessage from '../../components/common/ErrorMessage.js';
-import '../../components/common/FoodTypes';
+import FoodTypes from '../../components/common/FoodTypes';
 import dbUrl from '../../components/common/DatabaseUrl';
 
 // checkbox employed on registration form
@@ -36,10 +36,6 @@ class SimpleCheckBox extends React.Component {
 
 export default class RegisterSubscriberScreen extends React.Component {
   displayName = RegisterSubscriberScreen.name;
-
-  static navigationOptions = {
-    header: null
-  };
 
   constructor(properties) {
     super(properties);
@@ -134,7 +130,8 @@ export default class RegisterSubscriberScreen extends React.Component {
     const displayWaiting = this.state && this.state.loading;
     //console.log(displayForm + ":" + displayWaiting);
 
-    // If state exists and not loading and error object exists and error code is nonzero then we have an error to display
+		// If state exists and not loading and error object exists
+		// and error code is nonzero then we have an error to display
     const displayError =
       this.state &&
       !this.state.loading &&
@@ -142,31 +139,20 @@ export default class RegisterSubscriberScreen extends React.Component {
       this.state.error.ErrorNumber !== 0;
     //console.log(displayForm + ":" + displayWaiting + ":" + displayError);
 
-    // If state exists and not loading and error object exists and error code is zero then we have a successful registration
+		// If state exists and not loading and error object exists
+		// and error code is zero then we have a successful registration
     const displaySuccess =
       this.state &&
       !this.state.loading &&
       this.state.error !== null &&
       this.state.error.ErrorNumber === 0;
 
-    //console.log(
-    //  displayForm +
-    //   ":" +
-    //    displayWaiting +
-    //    ":" +
-    //    displayError +
-    //    ":" +
-    //    displaySuccess
-    //);
-
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           {(displayForm || displayError) && (
             <View style={styles.welcomeContainer}>
+
               <Image
                 source={
                   __DEV__
@@ -175,101 +161,118 @@ export default class RegisterSubscriberScreen extends React.Component {
                 }
                 style={styles.welcomeImage}
               />
+
               <Text style={styles.h1}>Register A New Account</Text>
+
               {displayError && (
                 <ErrorMessage text={this.state.error.ErrorMessage} />
-              )}
+							)}
+							
               <Input
                 placeholder="Email address"
                 name="username"
                 leftIcon={<Icon name="address-card" size={24} color="black" />}
-                onChangeText={this.handleEmailChange}
+                onChangeText={username => this.setState({ username })}
               />
+
               <Input
                 placeholder="Password"
                 name="password"
                 leftIcon={
                   <Icon name="question-circle" size={24} color="black" />
                 }
-                onChangeText={this.handlePasswordChange}
+                onChangeText={password => this.setState({ password })}
               />
+
               <Input
                 placeholder="Confirm Password"
                 name="confirmpassword"
                 leftIcon={
                   <Icon name="question-circle" size={24} color="black" />
                 }
-                onChangeText={this.handleConfirmPasswordChange}
+                onChangeText={confirmpassword => this.setState({ confirmpassword })}
               />
+
               <Input
                 placeholder="Password recovery question"
                 name="recoveryq"
                 leftIcon={<Icon name="sticky-note" size={24} color="black" />}
-                onChangeText={this.handlePasswordQChange}
+                onChangeText={recoveryq => this.setState({ recoveryq })}
               />
+
               <Input
                 placeholder="Password recovery answer"
                 name="recoverya"
                 leftIcon={<Icon name="sticky-note" size={24} color="black" />}
-                onChangeText={this.handlePasswordAChange}
+                onChangeText={recoverya => this.setState({ recoverya })}
               />
+
               <Input
                 placeholder="Friendly name"
                 name="friendlyname"
                 leftIcon={
                   <Icon name="question-circle" size={24} color="black" />
                 }
-                onChangeText={this.handleFriendlyChange}
+                onChangeText={friendlyname => this.setState({ friendlyname })}
               />
+
               <Input
                 placeholder="Address"
                 name="address"
                 leftIcon={<Icon name="address-book" size={24} color="black" />}
-                onChangeText={this.handleAddressChange}
+                onChangeText={address => this.setState({ address })}
               />
+
               <Input
                 placeholder="Phone"
                 name="phone"
                 leftIcon={<Icon name="phone" size={24} color="black" />}
-                onChangeText={this.handlePhoneChange}
+                onChangeText={phone => this.setState({ phone })}
               />
+
               <SimpleCheckBox
                 ref="mailinglist"
                 title="Add to Mailing List?"
                 checked={false}
               />
+
               <SimpleCheckBox
                 ref="emailoffers"
                 title="Notify by Email?"
                 checked={false}
               />
+
               <SimpleCheckBox
                 ref="textoffers"
                 title="Notify by Text Message?"
                 checked={false}
               />
+
               <FoodTypes onPrefsChange={this.setFoodPrefs} />
+
               <RkButton
                 rkType="rounded"
                 style={{ backgroundColor: '#f44242', marginTop: 10 }}
                 onPress={() => {
                   this.handleSubmit();
                 }}
-              >
-                Register
-              </RkButton>
+              >Register</RkButton>
+
             </View>
-          )}
+					)}
+					
           {displayWaiting && (
             <View style={styles.welcomeContainer}>
               <Text>Completing your registration...</Text>
             </View>
-          )}
+					)}
+					
           {displaySuccess && (
             <View style={styles.welcomeContainer}>
               <Text>Welcome to Last Call {this.state.username}!</Text>
             </View>
-          )}
+					)}
+					
         </ScrollView>
       </View>
     );

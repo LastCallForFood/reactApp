@@ -12,7 +12,7 @@ import { RkButton } from 'react-native-ui-kitten';
 export default class AboutUsScreen extends React.Component {
   static navigationOptions = {
 		header: null,
-		// TODO: remove OR fix this — is this useful, or is the default nav button fine?
+		// TODO: remove OR fix this — is this useful, or is the native back button fine?
 		/*headerLeft: (
 			<RkButton
 				rkType="clear"

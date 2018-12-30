@@ -1,12 +1,10 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Image } from 'react-native';
+import { Input } from 'react-native-elements';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
 import { RkButton } from 'react-native-ui-kitten';
-import LinkLabel from '../../components/common/LinkLabel.js';
-import ErrorMessage from '../../components/common/ErrorMessage.js';
-import { dbUrl } from '../../components/common/DatabaseUrl';
+import { dbUrl, ErrorMessage, LinkLabel } from '../../components/common';
 
 export default class LoginScreen extends React.Component {
 
@@ -19,27 +17,17 @@ export default class LoginScreen extends React.Component {
       loading: false,
       authtoken: null,
     };
-
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-  }
-
-  handleEmailChange(text) {
-    this.state.username = text; // Sets state property, for example username: 'adrian'
-  }
-
-  handlePasswordChange(text) {
-    this.state.password = text;
   }
 
   handleSubmit() {
 		const url = `${dbUrl}SubscriberServices/Login`;
-
-    const formData = new FormData();
+		const formData = new FormData();
+		
     formData.append('username', this.state.username);
     formData.append('password', this.state.password);
 
-    this.setState({ loading: true });
+		this.setState({ loading: true });
+		
     // POST the data, and check the response
     fetch(url, {
       method: 'POST',
@@ -55,7 +43,6 @@ export default class LoginScreen extends React.Component {
           loading: false,
           authtoken: data.AuthToken
         });
-        //console.log(JSON.stringify(data));
         console.log(
           `${data.error.ErrorNumber 
             } : ${ 
@@ -64,11 +51,8 @@ export default class LoginScreen extends React.Component {
             data.AuthToken}`
         );
         //TODO: Save the auth token
-        //TODO: Unstack the login page
-        //TODO: Go to the right place
 
         if (data.error.ErrorNumber === 0) {
-					const userType = 'subscriber';
           const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
@@ -94,14 +78,16 @@ export default class LoginScreen extends React.Component {
     // If state exists and loading then we are waiting for the server to respond
     const displayWaiting = this.state && this.state.loading;
 
-    // If state exists and not loading and error object exists and error code is nonzero then we have an error to display
+		// If state exists and not loading and error object exists
+		// and error code is nonzero then we have an error to display
     const displayError =
       this.state &&
       !this.state.loading &&
       this.state.error !== null &&
       this.state.error.ErrorNumber !== 0;
 
-    // If state exists and not loading and error object exists and error code is zero then we have a successful registration
+		// If state exists and not loading and error object exists and
+		// error code is zero then we have a successful registration
     const displaySuccess =
       this.state &&
       !this.state.loading &&
@@ -127,16 +113,18 @@ export default class LoginScreen extends React.Component {
 
               <Input
                 placeholder="Email address"
-                name="username"
+								name="username"
+								value={this.state.username}
                 leftIcon={<Icon name="user" size={24} color="black" />}
-                onChangeText={this.handleEmailChange}
+                onChangeText={username => this.setState({ username })}
               />
 
               <Input
                 placeholder="Password"
-                name="password"
+								name="password"
+								value={this.state.password}
                 leftIcon={<Icon name="question-circle" size={24} color="black" />}
-                onChangeText={this.handlePasswordChange}
+                onChangeText={password => this.setState({ password })}
               />
 
               {displayError && (

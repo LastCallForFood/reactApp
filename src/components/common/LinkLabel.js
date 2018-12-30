@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from 'react';
 
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from 'react-native';
 
-const LinkLabel = props => {
-  return (
+const LinkLabel = props => (
     <Text
       style={
         props.styles && props.styles.textLabel
@@ -14,17 +13,16 @@ const LinkLabel = props => {
       {props.text}
     </Text>
   );
-};
 
 const styles = StyleSheet.create({
   textLabel: {
     fontSize: 16,
-    fontWeight: "normal",
-    fontFamily: "space-mono",
+    fontWeight: 'normal',
+    fontFamily: 'space-mono',
     marginBottom: 10,
     marginTop: 30,
-    color: "#0000ff"
+    color: '#0000ff'
   }
 });
 
-export default LinkLabel;
+export { LinkLabel };

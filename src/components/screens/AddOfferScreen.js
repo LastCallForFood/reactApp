@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-export default class AddMealScreen extends React.Component {
+export default class AddOfferScreen extends React.Component {
 	
 	static navigationOptions = {
     title: 'Add Meal',

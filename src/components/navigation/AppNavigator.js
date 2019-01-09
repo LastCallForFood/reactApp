@@ -4,7 +4,6 @@ import {
 	createAppContainer,
 	createStackNavigator,
 	createBottomTabNavigator,
-	createSwitchNavigator
 } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -15,17 +14,14 @@ import AboutUsScreen from '../screens/AboutUsScreen';
 import OfferListScreen from '../screens/OfferListScreen';
 import MyAccountScreen from '../screens/MyAccountScreen';
 import RegisterSubscriberScreen from '../screens/RegisterSubscriber';
-import AddMealScreen from '../screens/AddMealScreen';
+import AddOfferScreen from '../screens/AddOfferScreen';
 import CurrentOffersScreen from '../screens/CurrentOffersScreen';
 import OfferHistoryScreen from '../screens/OfferHistoryScreen';
-
-// TODO: functionality that dynamically determines tab navigator based on user type
-const userType = 'subscriber';
 
 // supplier tab navigator
 const SupplierTabNavigator = createBottomTabNavigator(
 	{
-		AddMeal: AddMealScreen,
+		AddOffer: AddOfferScreen,
 		CurrentOffers: CurrentOffersScreen,
 		OfferHistory: OfferHistoryScreen,
 		MyAccount: MyAccountScreen,
@@ -35,12 +31,12 @@ const SupplierTabNavigator = createBottomTabNavigator(
 		defaultNavigationOptions: ({ navigation }) => ({
 			tabBarLabel: () => {
 				const { routeName } = navigation.state;
-				// eslint-disable-next-line max-len
-				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };	// tabBarLabel is not styled the same as it is when using .navigationOptions
+				// tabBarLabel is not styled the same as it is when using .navigationOptions
+				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };
 				let text;
 
 				switch (routeName) {
-					case 'AddMeal': 			text = 'Add Meal';				break;
+					case 'AddOffer': 			text = 'Add Meal';				break;
 					case 'CurrentOffers': text = 'Current Offers';	break;
 					case 'OfferHistory':	text = 'Offer History';		break;
 					case 'MyAccount': 		text = 'My Account';			break;
@@ -55,7 +51,7 @@ const SupplierTabNavigator = createBottomTabNavigator(
 
 				switch (routeName) {
 					// TODO
-					case 'AddMeal': 			iconName = 'ios-add';									break;
+					case 'AddOffer': 			iconName = 'ios-add';									break;
 					case 'CurrentOffers':	break;
 					case 'OfferHistory':	break;
 					case 'MyAccount': 		break;
@@ -119,16 +115,16 @@ const SubscriberTabNavigator = createBottomTabNavigator(
 	},
 );
 
-// auth stack navigator (for navigating splash screen/login)
+// auth stack navigator (for navigating splash screen & login)
 const AuthStackNavigator = createStackNavigator(
 	{
 		Home: HomeScreen,
 		SignIn: LoginScreen,
 		SignUp: RegisterSubscriberScreen,
 		AboutUs: AboutUsScreen,
-
-		SupplierTabs: SupplierTabNavigator,
+		// determined on LoginScreen
 		SubscriberTabs: SubscriberTabNavigator,
+		SupplierTabs: SupplierTabNavigator,
 	},
 	{
 		defaultNavigationOptions: () => ({

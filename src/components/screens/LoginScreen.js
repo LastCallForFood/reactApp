@@ -44,16 +44,15 @@ export default class LoginScreen extends React.Component {
           authtoken: data.AuthToken
         });
         console.log(
-          `${data.error.ErrorNumber 
-            } : ${ 
-            data.error.ErrorMessage 
-            } : ${ 
-            data.AuthToken}`
+					`${data.error.ErrorNumber}
+					: ${data.error.ErrorMessage}
+					: ${data.AuthToken}`
         );
         //TODO: Save the auth token
 
         if (data.error.ErrorNumber === 0) {
-					const userType = 'supplier'; // TODO
+					const userType = 'subscriber'; // TODO: determine userType from data object
+
           const resetAction = StackActions.reset({
             index: 0,
             actions: [

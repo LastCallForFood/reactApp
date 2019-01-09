@@ -17,7 +17,7 @@ export default class LoginScreen extends React.Component {
       loading: false,
       authtoken: null,
     };
-  }
+	}
 
   handleSubmit() {
 		const url = `${dbUrl}SubscriberServices/Login`;
@@ -53,11 +53,17 @@ export default class LoginScreen extends React.Component {
         //TODO: Save the auth token
 
         if (data.error.ErrorNumber === 0) {
+					const userType = 'supplier'; // TODO
           const resetAction = StackActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
-          });
-          this.props.navigation.dispatch(resetAction);
+            actions: [
+							userType === 'subscriber' ?
+							NavigationActions.navigate({ routeName: 'SubscriberTabs' }) :
+							NavigationActions.navigate({ routeName: 'SupplierTabs' })
+						],
+					});
+					
+					this.props.navigation.dispatch(resetAction);
         }
       })
       .catch(error => {

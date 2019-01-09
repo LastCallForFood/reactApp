@@ -48,9 +48,7 @@ export default class App extends React.Component {
 		return (
 			<View style={containerNoPadding}>
 				{Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-				<AppContainer
-					// onNavigationStateChange={} // TODO
-				/>
+				<AppContainer />
 			</View>
 		);
 	}

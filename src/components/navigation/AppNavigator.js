@@ -3,7 +3,8 @@ import { Text } from 'react-native';
 import {
 	createAppContainer,
 	createStackNavigator,
-	createBottomTabNavigator
+	createBottomTabNavigator,
+	createSwitchNavigator
 } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -125,7 +126,9 @@ const AuthStackNavigator = createStackNavigator(
 		SignIn: LoginScreen,
 		SignUp: RegisterSubscriberScreen,
 		AboutUs: AboutUsScreen,
-		Tabs: userType === 'subscriber' ? SubscriberTabNavigator : SupplierTabNavigator,
+
+		SupplierTabs: SupplierTabNavigator,
+		SubscriberTabs: SubscriberTabNavigator,
 	},
 	{
 		defaultNavigationOptions: () => ({

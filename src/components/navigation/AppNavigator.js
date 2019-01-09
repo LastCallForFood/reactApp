@@ -35,7 +35,7 @@ const SupplierTabNavigator = createBottomTabNavigator(
 			tabBarLabel: () => {
 				const { routeName } = navigation.state;
 				// eslint-disable-next-line max-len
-				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };	// for some reason, tabBarLabel is not styled the same as it is when using .navigationOptions
+				const tabBarStyle = { textAlign: 'center', /*color: {tintColor},*/ };	// tabBarLabel is not styled the same as it is when using .navigationOptions
 				let text;
 
 				switch (routeName) {
@@ -76,6 +76,7 @@ const SubscriberTabNavigator = createBottomTabNavigator(
 	},
 	{
 		defaultNavigationOptions: ({ navigation }) => ({
+			// TODO: debug the headerTitle field
 			headerTitle: () => {
 				const { routeName } = navigation.state;
 				let text;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 
-import AppNavigator from './src/components/navigation/AppNavigator';
+import AppContainer from './src/components/navigation/AppNavigator';
 import { containerNoPadding } from './src/styles/Style';
 
 export default class App extends React.Component {
@@ -48,7 +48,9 @@ export default class App extends React.Component {
 		return (
 			<View style={containerNoPadding}>
 				{Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-				<AppNavigator />
+				<AppContainer
+					// onNavigationStateChange={} // TODO
+				/>
 			</View>
 		);
 	}

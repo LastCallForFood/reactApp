@@ -4,7 +4,7 @@ import { Input } from 'react-native-elements';
 import { StackActions, NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { RkButton } from 'react-native-ui-kitten';
-import { dbUrl, ErrorMessage, LinkLabel } from '../../components/common';
+import { dbUrl, ErrorMessage, LinkLabel } from '../../components/common'; // imports from index file automatically
 
 export default class LoginScreen extends React.Component {
 
